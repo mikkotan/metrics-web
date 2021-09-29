@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
+import { Button } from 'antd'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { useMetricValues } from '../../hooks/useMetricValues'
 import MetricChart from '../../components/MetricChart'
@@ -19,7 +21,18 @@ const MetricCard = ({ metric }) => {
     }
   ))
 
-  return <MetricChart title={metric.name} data={metricData}/>
+  return (
+    <MetricChart
+      title={metric.name}
+      data={metricData}
+      actionButtons={
+        <>
+          <Button type="primary" size="small" icon={<EditOutlined />} />{' '}
+          <Button size="small" danger={true} icon={<DeleteOutlined />} />
+        </>
+      }
+    />
+  )
 }
 
 MetricCard.propTypes = {

@@ -6,6 +6,7 @@ const Card = styled.div`
   background: #f9fafb;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  max-height: 498px;
 `
 
 export default Card
