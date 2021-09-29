@@ -4,12 +4,7 @@ import styled from 'styled-components'
 import { Typography } from 'antd'
 import { Line } from '@ant-design/charts'
 
-const Card = styled.div`
-  padding: 24px;
-  margin: 16px;
-  background: #f9fafb;
-  border-radius: 8px;
-`
+import Card from '../Card'
 
 const LineWrapper = styled(Line)`
   margin-top: 24px;
