@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useMetrics } from '../../hooks/useMetrics'
 import MetricGrid from '../../components/MetricGrid'
-import AddMetricButton from '../../components/AddMetricButton'
+import AddMetric from '../AddMetric'
 import MetricCard from '../MetricCard'
 
 const MetricList = () => {
@@ -17,9 +17,9 @@ const MetricList = () => {
       <MetricGrid>
         {
           [
-            <AddMetricButton onClick={() => alert('Add metric')}/>,
+            <AddMetric key={0} />,
             ...metrics.data.map(metric => (
-            <MetricCard metric={metric} />
+            <MetricCard metric={metric} key={metric.id} />
             ))
           ]
         }

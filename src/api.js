@@ -1,4 +1,4 @@
-import { baseUrl, headers } from '../../utils'
+import { baseUrl, headers } from './utils'
 
 const apiV1 = `${baseUrl}/api/v1`
 
