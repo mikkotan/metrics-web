@@ -5,6 +5,9 @@ const apiV1 = `${baseUrl}/api/v1`
 export const fetchMetrics = () =>
   fetch(`${apiV1}/metrics`, { headers })
 
+export const fetchMetric = id =>
+  fetch(`${apiV1}/metrics/${id}`, { headers })
+
 export const fetchMetricValues = id =>
   fetch(`${apiV1}/metrics/${id}/values`, { headers })
 

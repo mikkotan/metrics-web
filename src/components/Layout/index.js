@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
   return (
     <AntdLayout>
       <AntdLayout.Header>
-        <Logo>Metrics</Logo>
+        <Logo>Metriq</Logo>
       </AntdLayout.Header>
       <Content>
         {children}

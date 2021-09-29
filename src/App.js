@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import Overview from './pages/Overview'
+import Metric from './pages/Metric'
 
 const queryClient = new QueryClient()
 
@@ -17,6 +18,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Switch>
+          <Route path="/metrics/:id" component={Metric} />
           <Route path="/home" component={Overview} />
           <Route path="/" component={() => <Redirect to="/home" />} />
         </Switch>

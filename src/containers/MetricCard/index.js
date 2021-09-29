@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import dayjs from 'dayjs'
+import { useHistory } from 'react-router-dom'
 import { Button, Popconfirm } from 'antd'
 import { EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 
+import { formatTimestamp } from '../../utils'
 import { useMetricValues } from '../../hooks/useMetricValues'
 import { useDeleteMetric } from '../../hooks/useDeleteMetric'
 import MetricChart from '../../components/MetricChart'
@@ -14,22 +15,24 @@ const StyledQuestionIcon = styled(QuestionCircleOutlined)`
 `
 
 const MetricCard = ({ metric }) => {
-  const metricValues = useMetricValues(metric.id)
+  const history = useHistory()
+  const { data: metricValuesData, ...metricValues } = useMetricValues(metric.id)
   const deleteMetric = useDeleteMetric()
+  const metricData = useMemo(
+    () => formatTimestamp(metricValuesData),
+    [metricValuesData]
+  )
 
   if (metricValues.isLoading) {
     return <div>Loading...</div>
   }
 
-  const metricData = metricValues.data.map(metricValue => (
-    {
-      ...metricValue,
-      formattedTimestamp: dayjs(metricValue.timestamp).format('M/D/YY HH:mm')
-    }
-  ))
-
   const handleDelete = () => {
     deleteMetric.mutate(metric.id)
+  }
+
+  const navigateToDetail = () => {
+    history.push(`/metrics/${metric.id}`)
   }
 
   return (
@@ -38,7 +41,13 @@ const MetricCard = ({ metric }) => {
       data={metricData}
       actionButtons={
         <>
-          <Button type="primary" size="small" icon={<EditOutlined />} />{' '}
+          <Button
+            type="primary"
+            size="small"
+            icon={<EditOutlined />}
+            onClick={navigateToDetail}
+          />
+          {' '}
           <Popconfirm
             title="Are you sure？"
             icon={<StyledQuestionIcon />}
