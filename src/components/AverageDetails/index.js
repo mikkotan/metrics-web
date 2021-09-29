@@ -9,7 +9,7 @@ const PaddedRow = styled(Row)`
 
 const AverageDetails = ({ perMinuteValue, perHourValue, perDayValue }) => {
   return (
-    <PaddedRow gutter={16}>
+    <PaddedRow gutter={24}>
       <Col span={8}>
         <Card>
           <Statistic

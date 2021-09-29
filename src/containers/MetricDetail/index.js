@@ -7,6 +7,7 @@ import { useMetricValues } from '../../hooks/useMetricValues'
 
 import AverageDetails from '../../components/AverageDetails'
 import MetricChart from '../../components/MetricChart'
+import MetricValuesTable from '../../components/MetricValuesTable'
 
 const Container = styled.div`
   padding-top: 16px;
@@ -23,6 +24,8 @@ const MetricDetail = ({ metricId, name }) => {
     return <div>Loading...</div>
   }
 
+  const handleDelete = id => alert(`Deleting ${id}`)
+
   return (
     <Container>
       <AverageDetails
@@ -31,6 +34,7 @@ const MetricDetail = ({ metricId, name }) => {
         perDayValue={3.28}
       />
       <MetricChart title={name} data={formattedData} />
+      <MetricValuesTable values={formattedData} onDelete={handleDelete} />
     </Container>
   )
 }
