@@ -14,3 +14,9 @@ export const createMetric = data =>
     headers,
     body: JSON.stringify(data)
   })
+
+export const deleteMetric = id =>
+  fetch(`${apiV1}/metrics/${id}`, {
+    method: 'delete',
+    headers
+  })

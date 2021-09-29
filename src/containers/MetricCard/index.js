@@ -1,14 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import dayjs from 'dayjs'
-import { Button } from 'antd'
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Button, Popconfirm } from 'antd'
+import { EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 
 import { useMetricValues } from '../../hooks/useMetricValues'
+import { useDeleteMetric } from '../../hooks/useDeleteMetric'
 import MetricChart from '../../components/MetricChart'
+
+const StyledQuestionIcon = styled(QuestionCircleOutlined)`
+  color: 'red';
+`
 
 const MetricCard = ({ metric }) => {
   const metricValues = useMetricValues(metric.id)
+  const deleteMetric = useDeleteMetric()
 
   if (metricValues.isLoading) {
     return <div>Loading...</div>
@@ -21,6 +28,10 @@ const MetricCard = ({ metric }) => {
     }
   ))
 
+  const handleDelete = () => {
+    deleteMetric.mutate(metric.id)
+  }
+
   return (
     <MetricChart
       title={metric.name}
@@ -28,7 +39,13 @@ const MetricCard = ({ metric }) => {
       actionButtons={
         <>
           <Button type="primary" size="small" icon={<EditOutlined />} />{' '}
-          <Button size="small" danger={true} icon={<DeleteOutlined />} />
+          <Popconfirm
+            title="Are you sure？"
+            icon={<StyledQuestionIcon />}
+            onConfirm={handleDelete}
+          >
+            <Button size="small" danger={true} icon={<DeleteOutlined />} />
+          </Popconfirm>
         </>
       }
     />
