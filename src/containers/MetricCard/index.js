@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
 
+import { useMetricValues } from '../../hooks/useMetricValues'
 import MetricChart from '../../components/MetricChart'
-import { useMetricValues } from './hooks/useMetricValues'
 
 const MetricCard = ({ metric }) => {
   const metricValues = useMetricValues(metric.id)
