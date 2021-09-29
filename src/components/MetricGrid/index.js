@@ -5,28 +5,14 @@ import { Row, Col } from 'antd'
 const MetricGrid = ({ children, columns }) => {
   const colSpan = 24 / columns
 
-  const gridChildren = children.reduce((grid, item, index) => {
-    if (index % columns === 0) {
-      return [...grid, [item]]
-    } else {
-      const lastRow = grid[grid.length - 1]
-      grid[grid.length - 1] = [...lastRow, item]
-      return grid
-    }
-  }, [])
-
   return (
-    <>
-      {gridChildren.map((row, idx) => (
-        <Row key={idx}>
-          {row.map((child, idxx) => (
-            <Col span={colSpan} key={idxx}>
-              {child}
-            </Col>
-          ))}
-        </Row>
+    <Row>
+      {children.map((child, idx) => (
+        <Col span={colSpan} key={idx}>
+          {child}
+        </Col>
       ))}
-    </>
+    </Row>
   )
 }
 
