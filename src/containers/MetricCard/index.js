@@ -1,18 +1,15 @@
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
-import { Button, Popconfirm } from 'antd'
-import { EditOutlined, DeleteOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
+import { EditOutlined } from '@ant-design/icons'
 
 import { formatTimestamp } from '../../utils'
 import { useMetricValues } from '../../hooks/useMetricValues'
 import { useDeleteMetric } from '../../hooks/useDeleteMetric'
-import MetricChart from '../../components/MetricChart'
 
-const StyledQuestionIcon = styled(QuestionCircleOutlined)`
-  color: 'red';
-`
+import MetricChart from '../../components/MetricChart'
+import DeleteButton from '../../components/DeleteButton'
 
 const MetricCard = ({ metric }) => {
   const history = useHistory()
@@ -48,13 +45,7 @@ const MetricCard = ({ metric }) => {
             onClick={navigateToDetail}
           />
           {' '}
-          <Popconfirm
-            title="Are you sure？"
-            icon={<StyledQuestionIcon />}
-            onConfirm={handleDelete}
-          >
-            <Button size="small" danger={true} icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <DeleteButton onDelete={handleDelete} />
         </>
       }
     />
