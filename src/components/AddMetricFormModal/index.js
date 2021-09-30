@@ -12,6 +12,7 @@ const AddMetricFormModal = ({
 
   const handleSubmit = () => {
     onSubmit({ name })
+    setName('')
   }
 
   return (

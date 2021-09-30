@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { Layout as AntdLayout } from 'antd'
 
 const Logo = styled.div`
@@ -18,7 +19,9 @@ const Layout = ({ children }) => {
   return (
     <AntdLayout>
       <AntdLayout.Header>
-        <Logo>Metriq</Logo>
+        <Link to="/">
+          <Logo>Metriq</Logo>
+        </Link>
       </AntdLayout.Header>
       <Content>
         {children}
