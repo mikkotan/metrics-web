@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Button } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 
-import { formatTimestamp } from '../../utils'
+import { formatMetricValues } from '../../utils'
 import { useMetricValues } from '../../hooks/useMetricValues'
 import { useDeleteMetric } from '../../hooks/useDeleteMetric'
 
@@ -16,8 +16,8 @@ const MetricCard = ({ metric }) => {
   const { data: metricValuesData, ...metricValues } = useMetricValues(metric.id)
   const deleteMetric = useDeleteMetric()
   const metricData = useMemo(
-    () => formatTimestamp(metricValuesData),
-    [metricValuesData]
+    () => formatMetricValues(metricValuesData?.list),
+    [metricValuesData?.list]
   )
 
   if (metricValues.isLoading) {

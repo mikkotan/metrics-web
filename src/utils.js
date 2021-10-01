@@ -6,10 +6,11 @@ export const headers = {
   'Content-Type': 'application/json'
 }
 
-export const formatTimestamp = metricValues => (
+export const formatMetricValues = metricValues => (
   (metricValues || []).map(metricValue => (
     {
       ...metricValue,
+      value: Number(metricValue.value),
       formattedTimestamp: dayjs(metricValue.timestamp).format('M/D/YY HH:mm')
     }
   ))

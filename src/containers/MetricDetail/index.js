@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { formatTimestamp } from '../../utils'
+import { formatMetricValues } from '../../utils'
 import { dateFilterOptions } from '../../utils'
 import { useMetricValues } from '../../hooks/useMetricValues'
 import { useDeleteMetricValue } from '../../hooks/useDeleteMetricValue'
@@ -37,8 +37,8 @@ const MetricDetail = ({ metricId, name }) => {
   const deleteMetricValue = useDeleteMetricValue(metricId)
 
   const formattedData = useMemo(
-    () => formatTimestamp(metricValuesData),
-    [metricValuesData]
+    () => formatMetricValues(metricValuesData?.list),
+    [metricValuesData?.list]
   )
 
   useEffect(() => {
@@ -55,13 +55,21 @@ const MetricDetail = ({ metricId, name }) => {
     deleteMetricValue.mutate(id)
   }
 
+  const {
+    average: {
+      per_minute: perMinute,
+      per_hour: perHour,
+      per_day: perDay,
+    }
+  } = metricValuesData
+
   return (
     <Container>
       <DateFilter value={filter} onChange={value => setFilter(value)} />
       <AverageDetails
-        perMinuteValue={0.00228}
-        perHourValue={0.01952}
-        perDayValue={3.28}
+        perMinuteValue={perMinute}
+        perHourValue={perHour}
+        perDayValue={perDay}
       />
       <MetricChart title={name} data={formattedData} />
       <MetricValuesTable
