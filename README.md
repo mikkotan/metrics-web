@@ -10,7 +10,10 @@ Clone the repo
 ```
 $ git clone git@github.com:michaelunltd/metrics-web.git && cd metrics-web
 ```
-
+Create .env file
+```
+$ cp .env.sample .env
+```
 Install dependencies
 ```
 $ yarn install
