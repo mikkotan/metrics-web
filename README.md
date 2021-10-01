@@ -1,6 +1,6 @@
 # Metrics Web
 ## Run this project on your local machine
-### Pre-requisits
+### Pre-requisites
 - [Backend Server](https://github.com/mikkotan/metrics-api) set up beforehand
 - Node v10.23.0 or above
 - yarn v1.22.10
