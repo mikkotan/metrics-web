@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Form, InputNumber, DatePicker } from 'antd'
+import { useForm, Controller } from 'react-hook-form'
+
+import ErrorMessage from '../ErrorMessage'
 
 const AddMetricValueFormModal = ({
   visible,
@@ -8,13 +11,22 @@ const AddMetricValueFormModal = ({
   onSubmit,
   confirmLoading
 }) => {
-  const [value, setValue] = useState(0)
-  const [timestamp, setTimeStamp] = useState('')
+  const {
+    handleSubmit,
+    reset,
+    clearErrors,
+    control,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      value: 0,
+      timestamp: ''
+    }
+  })
 
-  const handleSubmit = () => {
-    onSubmit({ value, timestamp })
-    setValue(0)
-    setTimeStamp('')
+  const handleSave = data => {
+    onSubmit(data)
+    reset() && clearErrors()
   }
 
   return (
@@ -22,18 +34,39 @@ const AddMetricValueFormModal = ({
       title="Add Metric Value"
       visible={visible}
       onCancel={onCancel}
-      onOk={handleSubmit}
+      onOk={handleSubmit(handleSave)}
       confirmLoading={confirmLoading}
       okText="Save"
     >
       <Form.Item label="Value">
-        <InputNumber
-          value={value}
-          onChange={value => setValue(value)}
+        <Controller
+          control={control}
+          name="value"
+          render={({ field }) => (
+            <InputNumber {...field} />
+          )}
+          rules={{ required: true }}
         />
+        {errors?.value && (
+          <ErrorMessage>* Value is required</ErrorMessage>
+        )}
       </Form.Item>
       <Form.Item label="Timestamp">
-        <DatePicker showTime value={timestamp} onOk={value => setTimeStamp(value)} />
+        <Controller
+          control={control}
+          name="timestamp"
+          render={({ field }) => (
+            <DatePicker
+              showTime
+              value={field.value}
+              onOk={value => field.onChange(value)}
+            />
+          )}
+          rules={{ required: true }}
+        />
+        {errors?.timestamp && (
+          <ErrorMessage>* Timestamp is required.</ErrorMessage>
+        )}
       </Form.Item>
     </Modal>
   )

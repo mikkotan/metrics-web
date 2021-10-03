@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Form, Input } from 'antd'
+import { useForm, Controller } from 'react-hook-form'
+
+import ErrorMessage from '../ErrorMessage'
 
 const AddMetricFormModal = ({
   visible,
@@ -8,11 +11,17 @@ const AddMetricFormModal = ({
   onSubmit,
   confirmLoading
 }) => {
-  const [name, setName] = useState('')
+  const {
+    handleSubmit,
+    reset,
+    clearErrors,
+    control,
+    formState: { errors }
+  } = useForm()
 
-  const handleSubmit = () => {
-    onSubmit({ name })
-    setName('')
+  const handleSave = data => {
+    onSubmit(data)
+    reset() && clearErrors()
   }
 
   return (
@@ -20,16 +29,25 @@ const AddMetricFormModal = ({
       title="Add New Metric"
       visible={visible}
       onCancel={onCancel}
-      onOk={handleSubmit}
+      onOk={handleSubmit(handleSave)}
       confirmLoading={confirmLoading}
       okText="Save"
     >
       <Form.Item label="Name">
-        <Input
-          placeholder="eg. Retention Rate, Performance, etc."
-          value={name}
-          onChange={e => setName(e.target.value)}
+        <Controller
+          control={control}
+          name="name"
+          render={({ field }) => (
+            <Input
+              placeholder="eg. Retention Rate, Performance, etc."
+              {...field}
+            />
+          )}
+          rules={{ required: true }}
         />
+        {errors?.name && (
+          <ErrorMessage>* Name is required.</ErrorMessage>
+        )}
       </Form.Item>
     </Modal>
   )
