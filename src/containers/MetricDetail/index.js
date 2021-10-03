@@ -29,7 +29,8 @@ const MetricDetail = ({ metricId, name }) => {
   const [filter, setFilter] = useState(dateFilterOptions.LAST_7_DAYS)
   const {
     data: metricValuesData,
-    refetch, ...metricValues
+    refetch,
+    ...metricValues
   } = useMetricValues(
     metricId,
     filter
@@ -37,9 +38,11 @@ const MetricDetail = ({ metricId, name }) => {
   const deleteMetricValue = useDeleteMetricValue(metricId)
 
   const formattedData = useMemo(
-    () => formatMetricValues(metricValuesData?.list),
-    [metricValuesData?.list]
+    () => formatMetricValues(metricValuesData?.data?.list),
+    [metricValuesData?.data?.list]
   )
+
+  debugger
 
   useEffect(() => {
     if (filter) {
@@ -61,7 +64,7 @@ const MetricDetail = ({ metricId, name }) => {
       per_hour: perHour,
       per_day: perDay,
     }
-  } = metricValuesData
+  } = metricValuesData.data
 
   return (
     <Container>

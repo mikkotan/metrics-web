@@ -6,7 +6,7 @@ import AddMetric from '../AddMetric'
 import MetricCard from '../MetricCard'
 
 const MetricList = () => {
-  const metrics = useMetrics()
+  const { data: metricsData, ...metrics } = useMetrics()
 
   if (metrics.isLoading) {
     return <div>Loading...</div>
@@ -18,7 +18,7 @@ const MetricList = () => {
         {
           [
             <AddMetric key={0} />,
-            ...metrics.data.map(metric => (
+            ...metricsData.data.map(metric => (
             <MetricCard metric={metric} key={metric.id} />
             ))
           ]

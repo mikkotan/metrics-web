@@ -16,7 +16,7 @@ export const useMetricValues = (id, filter = null, options = {}) => {
 
   return useQuery(
     [queryKey, id],
-    () => fetchMetricValues(id, { query }).then(res => res.json()),
+    () => fetchMetricValues(id, query),
     options
   )
 }

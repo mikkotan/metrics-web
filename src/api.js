@@ -1,43 +1,35 @@
-import qs from 'qs'
+import axios from 'axios'
 
 import { baseUrl, headers } from './utils'
 
 const apiV1 = `${baseUrl}/api/v1`
 
 export const fetchMetrics = () =>
-  fetch(`${apiV1}/metrics`, { headers })
+  axios.get(`${apiV1}/metrics`, { headers })
 
 export const fetchMetric = id =>
-  fetch(`${apiV1}/metrics/${id}`, { headers })
+  axios.get(`${apiV1}/metrics/${id}`, { headers })
 
-export const fetchMetricValues = (id, query) => {
-  const queryParams = qs.stringify(query)
-  const url = `${apiV1}/metrics/${id}/values?${queryParams}`
-  return fetch(url, { headers })
-}
-
-export const createMetric = data =>
-  fetch(`${apiV1}/metrics`, {
-    method: 'post',
-    headers,
-    body: JSON.stringify(data)
-  })
-
-export const deleteMetric = id =>
-  fetch(`${apiV1}/metrics/${id}`, {
-    method: 'delete',
+export const fetchMetricValues = (id, query) =>
+  axios.get(`${apiV1}/metrics/${id}/values`, {
+    params: query,
     headers
   })
 
+export const createMetric = data =>
+  axios.post(`${apiV1}/metrics`, data, {
+    headers
+  })
+
+export const deleteMetric = id =>
+  axios.delete(`${apiV1}/metrics/${id}`, { headers })
+
 export const createMetricValue = ({ metricId, ...data }) =>
-  fetch(`${apiV1}/metrics/${metricId}/values`, {
-    method: 'post',
-    headers,
-    body: JSON.stringify(data)
+  axios.post(`${apiV1}/metrics/${metricId}/values`, data, {
+    headers
   })
 
 export const deleteMetricValue = ({ metricId, id }) =>
-  fetch(`${apiV1}/metrics/${metricId}/values/${id}`, {
-    method: 'delete',
+  axios.delete(`${apiV1}/metrics/${metricId}/values/${id}`, {
     headers
   })

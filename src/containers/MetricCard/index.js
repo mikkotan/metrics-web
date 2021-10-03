@@ -16,8 +16,8 @@ const MetricCard = ({ metric }) => {
   const { data: metricValuesData, ...metricValues } = useMetricValues(metric.id)
   const deleteMetric = useDeleteMetric()
   const metricData = useMemo(
-    () => formatMetricValues(metricValuesData?.list),
-    [metricValuesData?.list]
+    () => formatMetricValues(metricValuesData?.data?.list),
+    [metricValuesData?.data?.list]
   )
 
   if (metricValues.isLoading) {

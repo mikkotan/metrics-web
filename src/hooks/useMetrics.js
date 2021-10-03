@@ -7,6 +7,6 @@ export const queryKey = 'metrics'
 export const useMetrics = (options = {}) =>
   useQuery(
     queryKey,
-    () => fetchMetrics().then(res => res.json()),
+    () => fetchMetrics(),
     options
   )
