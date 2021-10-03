@@ -14,7 +14,7 @@ const Metric = () => {
     return <div>Loading...</div>
   }
 
-  const { name } = metricData
+  const { name } = metricData?.data
 
   return (
     <AppLayout>

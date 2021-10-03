@@ -42,8 +42,6 @@ const MetricDetail = ({ metricId, name }) => {
     [metricValuesData?.data?.list]
   )
 
-  debugger
-
   useEffect(() => {
     if (filter) {
       refetch()
@@ -70,9 +68,9 @@ const MetricDetail = ({ metricId, name }) => {
     <Container>
       <DateFilter value={filter} onChange={value => setFilter(value)} />
       <AverageDetails
-        perMinuteValue={perMinute}
-        perHourValue={perHour}
-        perDayValue={perDay}
+        perMinuteValue={Number(perMinute)}
+        perHourValue={Number(perHour)}
+        perDayValue={Number(perDay)}
       />
       <MetricChart title={name} data={formattedData} />
       <MetricValuesTable
