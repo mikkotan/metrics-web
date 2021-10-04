@@ -13,7 +13,7 @@
 ### Getting Started
 Clone the repo
 ```
-$ git clone git@github.com:michaelunltd/metrics-web.git && cd metrics-web
+$ git clone git@github.com:mikkotan/metrics-web.git && cd metrics-web
 ```
 Create .env file
 ```
